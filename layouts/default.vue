@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer
       :mini-variant.sync="miniVariant"
       :clipped="clipped"
@@ -8,23 +8,57 @@
       app
     >
       <v-list>
-        <v-list-tile
-          router
-          :to="item.to"
-          :key="i"
-          v-for="(item, i) in items"
-          exact
+        <template
+          v-for="item in items"
         >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          <v-list-group
+            v-if="item.sublevels"
+            :to="item.permalink"
+            :key="item.id"
+            :prepend-icon="item.icon"
+            v-model="item.active"
+            @click="toggleActive(item.id)"
+          >
+            <v-list-tile slot="activator">
+              <v-list-tile-content>
+                <v-list-tile-title v-text="item.name"></v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile
+                router
+                :to="level.permalink"
+                :key="level.id"
+                v-for="level in item.sublevels"
+              >
+                <v-list-tile-content>
+                  <v-list-tile-title v-text="level.name"></v-list-tile-title>
+                </v-list-tile-content>
+
+                <v-list-tile-action>
+                  <v-icon v-html="level.icon"></v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+          </v-list-group>
+          <v-list-tile
+            v-else
+            router
+            :to="item.permalink"
+            :key="item.id"
+            v-model="item.active"
+            @click="toggleActive(item.id)"
+            exact
+          >
+            <v-list-tile-action>
+              <v-icon v-html="item.icon"></v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="item.name"></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
+    <v-toolbar fixed app dark :clipped-left="clipped" color="primary">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn
         icon
@@ -44,13 +78,13 @@
       >
         <v-icon>remove</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title class="title" v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
-        <v-icon>menu</v-icon>
+        <v-icon>shopping_cart</v-icon>
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -80,21 +114,27 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
+
   export default {
     data () {
       return {
         clipped: false,
         drawer: true,
         fixed: false,
-        items: [
-          { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
-        ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Vuetify.js'
+        title: 'El Baratón'
       }
+    },
+    computed: {
+      items () {
+        return this.$store.state.categories
+      }
+    },
+    methods: {
+      ...mapMutations(['toggleActive'])
     }
   }
 </script>

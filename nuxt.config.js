@@ -15,6 +15,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
+  modules: ['@nuxtjs/axios'],
   plugins: ['~/plugins/vuetify.js'],
   css: [
     '~/assets/style/app.styl'
@@ -28,7 +29,8 @@ module.exports = {
   */
   build: {
     vendor: [
-      '~/plugins/vuetify.js'
+      '~/plugins/vuetify.js',
+      'axios'
     ],
     extractCSS: true,
     /*
