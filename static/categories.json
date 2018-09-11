@@ -1,0 +1,96 @@
+{ "categories": [
+	{
+		"id": 1,
+		"icon": "local_drink",
+		"name": "Bebidas",
+		"permalink": "/bebidas",
+		"sublevels": [
+			{
+				"id": 1,
+				"name": "Gaseosas",
+				"permalink": "/bebidas/gaseosas",
+				"sublevels": [
+					{
+						"id": 2,
+						"name": "Con azúcar",
+						"permalink": "/bebidas/gaseosas/con-azucar"
+					},
+					{
+						"id": 3,
+						"name": "Sin azúcar",
+						"permalink": "/bebidas/gaseosas/sin-azucar"
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 2,
+		"icon": "local_cafe",
+		"name": "Desayunos",
+		"permalink": "/desayunos",
+		"sublevels": [
+			{
+				"id": 4,
+				"name": "Fake 1",
+				"permalink": "/fake-1",
+				"sublevels": [
+					{
+						"id": 5,
+						"name": "Fake 2",
+						"permalink": "/fake-1/fake-2"
+					},
+					{
+						"id": 6,
+						"name": "Fake 3",
+						"permalink": "/fake-1/fake-3",
+						"sublevels": [
+							{
+								"id": 7,
+								"name": "Fake 4",
+								"permalink": "/fake-1/fake-3/fake-4"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 8,
+		"icon": "fastfood",
+		"name": "Almuerzos",
+		"permalink": "/almuerzos",
+		"sublevels": [
+			{
+				"id": 9,
+				"name": "Fake 5",
+				"permalink": "/almuerzos/fake-5"
+			},
+			{
+				"id": 10,
+				"name": "Fake 6",
+				"permalink": "/almuerzos/fake-6"
+			}
+		]
+	},
+	{
+		"id": 11,
+		"icon": "local_bar",
+		"name": "Vinos",
+		"permalink": "/vinos",
+		"sublevels": [
+			{
+				"id": 12,
+				"name": "Fake 8",
+				"permalink": "/vinos/fake-8"
+			},
+			{
+				"id": 13,
+				"name": "Fake 9",
+				"permalink": "/vinos/fake-9"
+			}
+		]
+	}
+]
+}
