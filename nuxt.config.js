@@ -53,7 +53,7 @@ module.exports = {
   router: {
     extendRoutes (routes, resolve) {
       routes.push({
-        name: 'filter-by-permalink',
+        name: 'filter-by-category',
         path: '/filter-by/:permalink+',
         component: resolve(__dirname, 'pages/filter-by/_permalink.vue')
       })

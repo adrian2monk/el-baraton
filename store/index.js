@@ -21,25 +21,11 @@ export const mutations = {
     // Find the sublevel(s) to filter
     const sublevels = permalink.split('/').reduce((sub, slug) => {
       const category = sub.find(c => c.permalink.endsWith(slug))
-      return slug ? category.sublevels || category : sub
-    }, [...state.categories])
+      return category.sublevels || category
+    }, state.categories)
 
-    // Bfs to search all sublevel_id(s)
-    if (sublevels.length) {
-      products = []
-      let queue = sublevels
-      while (queue.length > 0) {
-        const category = queue.pop()
-        if (category.sublevels) {
-          queue = [...category.sublevels, ...queue]
-        } else {
-          products = [...products, ...source.filter(p => p.sublevel_id === category.id)]
-        }
-      }
     // Only one sublevel, then it's leaf
-    } else {
-      products = source.filter(p => p.sublevel_id === sublevels.id)
-    }
+    products = source.filter(p => p.sublevel_id === sublevels.id)
 
     // Update product stock with filtered results
     state.products = products
