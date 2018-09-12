@@ -28,3 +28,11 @@
     </v-flex>
   </v-layout>
 </template>
+
+<script>
+export default {
+  async fetch ({ store }) {
+    await store.dispatch('getProducts')
+  }
+}
+</script>

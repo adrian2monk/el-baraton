@@ -23,7 +23,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#7DDF64' },
   /*
   ** Build configuration
   */
@@ -45,6 +45,18 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  /**
+   * Extend routing behavior
+   */
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'filter-by-permalink',
+        path: '/filter-by/:permalink+',
+        component: resolve(__dirname, 'pages/filter-by/_permalink.vue')
+      })
     }
   }
 }

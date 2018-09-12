@@ -8,27 +8,40 @@
       app
     >
       <v-list>
+        <v-list-tile
+          :to="statics.home.permalink"
+        >
+          <v-list-tile-action>
+            <v-icon v-html="statics.home.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="statics.home.name"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <template
           v-for="item in items"
         >
           <v-list-group
-            v-if="item.sublevels"
-            :to="item.permalink"
             :key="item.id"
             :prepend-icon="item.icon"
-            v-model="item.active"
-            @click="toggleActive(item.id)"
+            :group="`filter-by${item.permalink}`"
+            v-if="item.sublevels"
           >
             <v-list-tile slot="activator">
               <v-list-tile-content>
                 <v-list-tile-title v-text="item.name"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile
-                router
-                :to="level.permalink"
+            <template v-for="level in item.sublevels">
+              <baraton-category-deep-list 
                 :key="level.id"
-                v-for="level in item.sublevels"
+                :category="level"
+                v-if="level.sublevels"
+              />
+              <v-list-tile
+                :key="level.id"
+                :to="`/filter-by${level.permalink}`"
+                v-else
               >
                 <v-list-tile-content>
                   <v-list-tile-title v-text="level.name"></v-list-tile-title>
@@ -38,15 +51,12 @@
                   <v-icon v-html="level.icon"></v-icon>
                 </v-list-tile-action>
               </v-list-tile>
+            </template>
           </v-list-group>
           <v-list-tile
-            v-else
-            router
-            :to="item.permalink"
             :key="item.id"
-            v-model="item.active"
-            @click="toggleActive(item.id)"
-            exact
+            :to="`/filter-by${item.permalink}`"
+            v-else
           >
             <v-list-tile-action>
               <v-icon v-html="item.icon"></v-icon>
@@ -56,6 +66,16 @@
             </v-list-tile-content>
           </v-list-tile>
         </template>
+        <v-list-tile
+          :to="statics.about.permalink"
+        >
+          <v-list-tile-action>
+            <v-icon v-html="statics.about.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="statics.about.name"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed app dark :clipped-left="clipped" color="primary">
@@ -108,21 +128,28 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import BaratonCategoryDeepList from '../components/BaratonDeepCategoryList.vue'
 
   export default {
+    components: {
+      BaratonCategoryDeepList
+    },
     data () {
       return {
         clipped: false,
         drawer: true,
         fixed: false,
         miniVariant: false,
+        statics: {
+          home: { icon: 'apps', name: 'Todos los productos', permalink: '/' },
+          about: { icon: 'bubble_chart', name: 'Acerca de mi', permalink: '/inspire' }
+        },
         right: true,
         rightDrawer: false,
         title: 'El Baratón'
@@ -132,9 +159,6 @@
       items () {
         return this.$store.state.categories
       }
-    },
-    methods: {
-      ...mapMutations(['toggleActive'])
     }
   }
 </script>
