@@ -9,7 +9,7 @@ export const mutations = {
     state.categories = categories || []
   },
   setProducts (state, products) {
-    state.product = products || []
+    state.products = products || []
   },
   toggleSidebar (state) {
     state.sidebar = !state.sidebar

@@ -5,7 +5,7 @@
 <script>
 export default {
   async fetch ({ store, params }) {
-    await store.dispatch('changeCategory', decodeURIComponent(params.permalink))
+    await store.dispatch('changeCategory', params.permalink)
   },
   computed: {
     products () {

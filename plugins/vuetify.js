@@ -8,7 +8,7 @@ Vue.use(Vuetify, {
     secondary: '#f15946',
     info: '#9c27b0',
     warning: '#e8aa14',
-    error: '#e01a4f',
+    error: '#ff5714',
     success: '#7ddf64'
   }
 })
