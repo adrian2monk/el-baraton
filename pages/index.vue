@@ -5,6 +5,8 @@
         <img src="/v.png" alt="Vuetify.js" class="mb-5" />
       </div>
       <baraton-filters-product-list />
+      <v-subheader class="title mt-2">Productos</v-subheader>
+      <v-divider></v-divider>
       <baraton-product-list :products="products"/>
     </v-flex>
   </v-layout>
