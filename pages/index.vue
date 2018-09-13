@@ -2,7 +2,7 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
-        <img src="/v.png" alt="Vuetify.js" class="mb-5" />
+        <img src="/logo_transparent.png" alt="El Baraton" width="300" />
       </div>
       <baraton-filters-product-list />
       <v-subheader class="title mt-2">Productos</v-subheader>

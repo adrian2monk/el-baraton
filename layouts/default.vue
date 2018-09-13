@@ -152,7 +152,7 @@
         },
         right: true,
         rightDrawer: false,
-        title: 'El Baratón'
+        title: 'Baratón'
       }
     },
     computed: {
