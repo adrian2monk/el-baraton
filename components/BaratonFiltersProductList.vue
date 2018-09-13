@@ -20,8 +20,8 @@
           </v-flex>
           <v-flex xs6>
             <v-range-slider
-              :max="maxPrice"
-              :min="minPrice"
+              :max="priceMax"
+              :min="priceMin"
               v-model="price"
               color="secondary"
               class="px-5"
@@ -70,9 +70,9 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions class="pa-3">
-      <v-btn flat color="secondary" @click="$emit('cleanSearch')">Limpiar</v-btn>
+      <v-btn flat color="secondary" @click="clearSearch">Limpiar</v-btn>
       <v-spacer></v-spacer>
-      <v-btn flat color="primary" @click="$emit('doSearch', form)">Listo</v-btn>
+      <v-btn flat color="primary" @click="doSearch">Listo</v-btn>
     </v-card-actions>
   </v-card> 
 </template>
@@ -82,12 +82,8 @@ export default {
   data () {
     return {
       price: [10.00, 100.00],
-      maxPrice: 100,
-      minPrice: 10,
       quantity: 1,
       available: true,
-      priceMin: null,
-      priceMax: null,
       error: ''
     }
   },
@@ -99,6 +95,12 @@ export default {
         quantity: this.quantity,
         available: this.available
       }
+    },
+    priceMin () {
+      return this.$store.state.price.min
+    },
+    priceMax () {
+      return this.$store.state.price.max
     }
   },
   watch: {
@@ -107,10 +109,11 @@ export default {
     }
   },
   methods: {
-    reset () {
-      Object.keys(this.form).forEach(f => {
-        this.$refs[f].reset()
-      })
+    async clearSearch () {
+      await this.$store.dispatch('getProducts')
+    },
+    doSearch () {
+      this.$store.commit('productByFilter', this.form)
     }
   }
 }

@@ -1,7 +1,11 @@
 export const state = () => ({
   sidebar: false,
   categories: [],
-  products: []
+  products: [],
+  price: {
+    min: 0,
+    max: 0
+  }
 })
 
 export const mutations = {
@@ -10,6 +14,10 @@ export const mutations = {
   },
   setProducts (state, products) {
     state.products = products || []
+  },
+  setPrice (state, { min, max }) {
+    state.price.min = min
+    state.price.max = max
   },
   toggleSidebar (state) {
     state.sidebar = !state.sidebar
@@ -29,6 +37,14 @@ export const mutations = {
 
     // Update product stock with filtered results
     state.products = products
+  },
+  productByFilter (state, { quantity = 1, priceMin = state.price.min, priceMax = state.price.max, available = true }) {
+    state.products = state.products.filter(pdt => {
+      return pdt.quantity > quantity &&
+        parseFloat(pdt.price.substring(1)) >= priceMin &&
+        parseFloat(pdt.price.substring(1)) <= priceMax &&
+        pdt.available === available
+    })
   }
 }
 
@@ -45,6 +61,13 @@ export const actions = {
   async getProducts ({ commit }) {
     const productBody = await this.$axios.$get('products.json')
     const products = productBody.products
+    const min = products.reduce((acc, pdt) =>
+      Math.min(acc, parseFloat(pdt.price.substring(1))),
+    0.0)
+    const max = products.reduce((acc, pdt) =>
+      Math.max(acc, parseFloat(pdt.price.substring(1))),
+    0.0)
+    commit('setPrice', { min, max })
     commit('setProducts', products)
   },
   async changeCategory ({ commit }, permalink) {
