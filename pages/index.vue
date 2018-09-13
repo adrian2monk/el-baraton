@@ -6,6 +6,9 @@
       </div>
       <baraton-filters-product-list />
       <v-subheader class="title mt-2">Productos</v-subheader>
+      <baraton-sort-by-price />
+      <baraton-sort-by-quantity />
+      <baraton-sort-by-availability />
       <v-divider></v-divider>
       <baraton-product-list :products="products"/>
     </v-flex>
@@ -15,11 +18,17 @@
 <script>
 import BaratonFiltersProductList from '../components/BaratonFiltersProductList'
 import BaratonProductList from '../components/BaratonProductList'
+import BaratonSortByPrice from '../components/BaratonSortByPrice'
+import BaratonSortByQuantity from '../components/BaratonSortByQuantity'
+import BaratonSortByAvailability from '../components/BaratonSortByAvailability'
 
 export default {
   components: {
     BaratonFiltersProductList,
-    BaratonProductList
+    BaratonProductList,
+    BaratonSortByPrice,
+    BaratonSortByQuantity,
+    BaratonSortByAvailability
   },
   async fetch ({ store }) {
     await store.dispatch('getProducts')

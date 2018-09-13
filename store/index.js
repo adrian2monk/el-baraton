@@ -2,6 +2,11 @@ export const state = () => ({
   sidebar: false,
   categories: [],
   products: [],
+  sorted: {
+    price: false,
+    availability: false,
+    quantity: false
+  },
   price: {
     min: 0,
     max: 0
@@ -14,6 +19,7 @@ export const mutations = {
   },
   setProducts (state, products) {
     state.products = products || []
+    state.sorted.price = state.sorted.availability = state.sorted.quantity = false
   },
   setPrice (state, { min, max }) {
     state.price.min = min
@@ -45,6 +51,33 @@ export const mutations = {
         parseFloat(pdt.price.substring(1)) <= priceMax &&
         pdt.available === available
     })
+  },
+  sortByPrice (state, order) {
+    const sorted = [...state.products]
+    sorted.sort((a, b) => order > 0
+      ? parseFloat(a.price.substring(1)) - parseFloat(b.price.substring(1))
+      : parseFloat(b.price.substring(1)) - parseFloat(a.price.substring(1)))
+    state.products = sorted
+    state.sorted.price = true
+    state.sorted.quantity = state.sorted.availability = false
+  },
+  sortByQuantity (state, order) {
+    const sorted = [...state.products]
+    sorted.sort((a, b) => order > 0
+      ? a.quantity - b.quantity
+      : b.quantity - a.quantity)
+    state.products = sorted
+    state.sorted.quantity = true
+    state.sorted.price = state.sorted.availability = false
+  },
+  sortByAvailability (state, order) {
+    const sorted = [...state.products]
+    sorted.sort((a, b) => order > 0
+      ? a.available - b.available
+      : b.available - a.available)
+    state.products = sorted
+    state.sorted.availability = true
+    state.sorted.price = state.sorted.quantity = false
   }
 }
 
