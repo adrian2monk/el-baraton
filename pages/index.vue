@@ -5,17 +5,19 @@
         <img src="/v.png" alt="Vuetify.js" class="mb-5" />
       </div>
       <baraton-filters-product-list />
-      <pre class="mt-5">{{ products }}</pre>
+      <baraton-product-list :products="products"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import BaratonFiltersProductList from '../components/BaratonFiltersProductList'
+import BaratonProductList from '../components/BaratonProductList'
 
 export default {
   components: {
-    BaratonFiltersProductList
+    BaratonFiltersProductList,
+    BaratonProductList
   },
   async fetch ({ store }) {
     await store.dispatch('getProducts')
