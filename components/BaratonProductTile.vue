@@ -21,6 +21,7 @@
       >{{ product.price }}</p>
       <v-fab-transition>
         <v-btn
+          @click="shop"
           v-show="hover"
           small
           absolute
@@ -46,6 +47,32 @@ export default {
   props: {
     product: {
       type: Object
+    }
+  },
+  methods: {
+    shop () {
+      const count = this.$store.state.shopping.length
+      this.$store.commit('addToCart', {
+        quantity: 1,
+        subtotal: parseFloat(this.product.price.substring(1)),
+        product: this.product
+      })
+      if (this.$store.state.exists) {
+        this.$emit('productAddToCart', {
+          type: 'success',
+          message: `Se actualizó la cantidad a comprar de ${this.product.name}. ¡Gracias por su elección!`
+        })
+      } else if (count < this.$store.state.shopping.length) {
+        this.$emit('productAddToCart', {
+          type: 'info',
+          message: 'El producto ha sido añadido al carrito de compras. Podrá hacer modificaciones a su pedido cuándo lo desee.'
+        })
+      } else {
+        this.$emit('productAddToCart', {
+          type: 'error',
+          message: 'El producto no tiene disponibilidad en estos momentos. Inténtelo más tarde.'
+        })
+      }
     }
   }
 }

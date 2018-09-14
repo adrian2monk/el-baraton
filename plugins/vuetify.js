@@ -6,7 +6,7 @@ Vue.use(Vuetify, {
     primary: '#e01a4f',
     accent: '#7ddf64',
     secondary: '#f15946',
-    info: '#9c27b0',
+    info: '#307fe2',
     warning: '#e8aa14',
     error: '#ff5714',
     success: '#7ddf64'

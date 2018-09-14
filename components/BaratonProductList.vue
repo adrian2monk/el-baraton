@@ -6,8 +6,24 @@
       v-for="product in products"
       md3 sm6
     >
-      <baraton-product-tile :product="product" />
+      <baraton-product-tile
+        :product="product"
+        @productAddToCart="notify($event)" />
     </v-flex>
+    <v-snackbar
+      :color="type"
+      v-model="snackbar"
+      top
+      auto-height
+    >
+      {{ message }}
+      <v-btn
+        flat
+        @click="snackbar = false"
+      >
+        Cerrar
+      </v-btn>
+    </v-snackbar>
   </v-layout>
 </v-container>
 </template>
@@ -21,6 +37,20 @@ export default {
   },
   props: {
     products: Array
+  },
+  data () {
+    return {
+      snackbar: false,
+      message: '',
+      type: null
+    }
+  },
+  methods: {
+    notify ({ type, message }) {
+      this.message = message
+      this.type = type
+      this.snackbar = true
+    }
   }
 }
 </script>

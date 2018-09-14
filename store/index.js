@@ -2,6 +2,8 @@ export const state = () => ({
   sidebar: false,
   categories: [],
   products: [],
+  shopping: [],
+  exists: false,
   sorted: {
     price: false,
     availability: false,
@@ -78,6 +80,37 @@ export const mutations = {
     state.products = sorted
     state.sorted.availability = true
     state.sorted.price = state.sorted.quantity = false
+  },
+  addToCart (state, { quantity, subtotal, product }) {
+    state.exists = false
+    const index = state.shopping.findIndex(psh => psh.product_id === product.id)
+    if (index < 0) {
+      quantity <= product.quantity && product.available &&
+      state.shopping.push({
+        // To track purchase
+        id: `psh-${Date.now()}-${product.id}`,
+        product_id: product.id,
+        checked: false,
+        quantity,
+        subtotal,
+        product
+      })
+    } else if (state.shopping[index].quantity + 1 <= product.quantity && product.available) {
+      state.exists = true
+      state.shopping[index].quantity += 1
+    }
+  },
+  toggleProduct (state, index) {
+    state.shopping[index].checked = !state.shopping[index].checked
+  },
+  addOne (state, index) {
+    state.shopping[index].quantity += 1
+  },
+  decreaseOne (state, index) {
+    state.shopping[index].quantity -= 1
+  },
+  flushCart (state) {
+    state.shopping = []
   }
 }
 
