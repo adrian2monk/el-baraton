@@ -187,7 +187,7 @@
             </v-btn>
           </v-list-tile-action>
         </v-list-tile>
-        <v-list-tile color="accent" @click="buy">
+        <v-list-tile color="accent" @click="buy" :disabled="total === 0">
           <v-list-tile-content style="align-items: center">
             <p class="ma-0" style="font-size: 2em">COMPRAR</p>
           </v-list-tile-content>
@@ -202,7 +202,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
-  import BaratonCategoryDeepList from '../components/BaratonDeepCategoryList.vue'
+  import BaratonCategoryDeepList from '~/components/BaratonDeepCategoryList.vue'
 
   export default {
     components: {

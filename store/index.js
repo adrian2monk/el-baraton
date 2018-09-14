@@ -1,3 +1,5 @@
+import { save, flush } from '~/utils/storage'
+
 export const state = () => ({
   sidebar: false,
   categories: [],
@@ -16,6 +18,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setShopping (state, shopping) {
+    state.shopping = shopping || []
+  },
   setCategories (state, categories) {
     state.categories = categories || []
   },
@@ -95,27 +100,34 @@ export const mutations = {
         subtotal,
         product
       })
+      quantity <= product.quantity && product.available &&
+      save('cart', state.shopping)
     } else if (state.shopping[index].quantity + 1 <= product.quantity && product.available) {
       state.exists = true
       state.shopping[index].quantity += 1
+      save('cart', state.shopping)
     }
   },
   toggleProduct (state, index) {
     state.shopping[index].checked = !state.shopping[index].checked
+    save('cart', state.shopping)
   },
   addOne (state, index) {
     state.shopping[index].quantity += 1
+    save('cart', state.shopping)
   },
   decreaseOne (state, index) {
     state.shopping[index].quantity -= 1
+    save('cart', state.shopping)
   },
   flushCart (state) {
     state.shopping = []
+    flush()
   }
 }
 
 export const actions = {
-  async nuxtServerInit ({ dispatch }) {
+  async nuxtServerInit ({ commit, dispatch }) {
     await dispatch('getCategories')
     await dispatch('getProducts')
   },

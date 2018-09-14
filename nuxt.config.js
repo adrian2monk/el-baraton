@@ -51,6 +51,7 @@ module.exports = {
    * Extend routing behavior
    */
   router: {
+    middleware: ['shopping'],
     extendRoutes (routes, resolve) {
       routes.push({
         name: 'filter-by-category',

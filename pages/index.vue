@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import BaratonFiltersProductList from '../components/BaratonFiltersProductList'
-import BaratonProductList from '../components/BaratonProductList'
-import BaratonSortByPrice from '../components/BaratonSortByPrice'
-import BaratonSortByQuantity from '../components/BaratonSortByQuantity'
-import BaratonSortByAvailability from '../components/BaratonSortByAvailability'
+import BaratonFiltersProductList from '~/components/BaratonFiltersProductList'
+import BaratonProductList from '~/components/BaratonProductList'
+import BaratonSortByPrice from '~/components/BaratonSortByPrice'
+import BaratonSortByQuantity from '~/components/BaratonSortByQuantity'
+import BaratonSortByAvailability from '~/components/BaratonSortByAvailability'
 
 export default {
   components: {
@@ -30,7 +30,7 @@ export default {
     BaratonSortByQuantity,
     BaratonSortByAvailability
   },
-  async fetch ({ store }) {
+  async fetch ({ store, req }) {
     await store.dispatch('getProducts')
   },
   computed: {
