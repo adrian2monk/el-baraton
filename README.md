@@ -1,6 +1,6 @@
-# el-baraton
+# El Baratón
 
-> Nuxt.js + Vuetify.js project
+> Nuxt.js + Vuetify.js demo store 
 
 ## Build Setup
 
