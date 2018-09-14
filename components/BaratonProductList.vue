@@ -4,7 +4,7 @@
     <v-flex
       :key="product.id"
       v-for="product in products"
-      md3 sm6
+      md3 sm6 xs12
     >
       <baraton-product-tile
         :product="product"
